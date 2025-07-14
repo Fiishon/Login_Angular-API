@@ -19,7 +19,7 @@ export class Pokemon implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<any>('https://pokeapi.co/api/v2/pokemon?limit=40').subscribe(response => {
+    this.http.get<any>('https://pokeapi.co/api/v2/pokemon?limit=151').subscribe(response => {
       const requests = response.results.map((p: any) => this.http.get(p.url));
       forkJoin(requests).subscribe((details:any) => {
         this.pokemon.set(details);

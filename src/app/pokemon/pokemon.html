@@ -1,26 +1,33 @@
-<div class="filtro">
-  <input type="text" placeholder="Buscar por nombre..." [(ngModel)]="filtroNombre" (input)="filtrarPokemons()">
-</div>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <a class="navbar-brand">
+      <img src="Pokedex.jpg" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+    </a>
+    <form class="d-flex">
+      <input type="text" class="form-control" placeholder="Buscar por nombre..." [(ngModel)]="filtroNombre" name="filtro" (input)="filtrarPokemons()">
+    </form>
+  </div>
+</nav>
 
 <div class="pokedex-container" >
-  <div class="col-12">
-    <table class="table table-bordered">
+  <div class="col-8">
+    <table class="table table-bordered tabla-transparente">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Imagen</th>
-          <th>Tipo primario</th>
-          <th>Tipo secundario</th>
+          <th class="cabecera">ID</th>
+          <th class="cabecera">Nombre</th>
+          <th class="cabecera">Imagen</th>
+          <th class="cabecera">Tipo primario</th>
+          <th class="cabecera">Tipo secundario</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="tabla tabla-transparente">
         @for (p of pokemonFiltrados(); track p.id) {
           <tr (click)="mostrarDetalle(p)" style="cursor: pointer;">
             <td>{{ p.id }}</td>
             <td>{{ p.name }}</td>
             <td>
-              <img [src]="p.sprites.front_default" width="50" alt="{{ p.name }}">
+              <img [src]="p.sprites.front_default" width="150" alt="{{ p.name }}">
             </td>
             <td [ngClass]="getColorClase(p)">
               {{ getTipoPrimario(p) }}
@@ -38,7 +45,7 @@
   <div class="modal-content">
     <span class="close" (click)="cerrarModal()">&times;</span>
     <h2>#{{ pokemonSeleccionado.id }} - {{ pokemonSeleccionado.name }}</h2>
-    <img [src]="pokemonSeleccionado.sprites.front_default" width="120" alt="{{ pokemonSeleccionado.name }}">
+    <img [src]="pokemonSeleccionado.sprites.front_default" width="150" alt="{{ pokemonSeleccionado.name }}">
     <p><strong>Altura:</strong> {{ pokemonSeleccionado.height }}</p>
     <p><strong>Peso:</strong> {{ pokemonSeleccionado.weight }}</p>
     <p><strong>Habilidades:</strong>
@@ -48,3 +55,4 @@
     </p>
   </div>
 </div>
+
