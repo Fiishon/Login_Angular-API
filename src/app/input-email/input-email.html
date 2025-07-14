@@ -1,0 +1,12 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Correo</mat-label>
+    <input type="email" matInput [formControl]="emailFormControl" formControlName="email" placeholder="Ej. prueba@ejemplo.com">
+    @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+      <mat-error>Ingrese un correo electronico válido</mat-error>
+    }
+    @if (emailFormControl.hasError('required')) {
+      <mat-error>Correo <strong>obligatorio</strong></mat-error>
+    }
+  </mat-form-field>
+</form>

@@ -1,0 +1,50 @@
+<div class="filtro">
+  <input type="text" placeholder="Buscar por nombre..." [(ngModel)]="filtroNombre" (input)="filtrarPokemons()">
+</div>
+
+<div class="pokedex-container" >
+  <div class="col-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Imagen</th>
+          <th>Tipo primario</th>
+          <th>Tipo secundario</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of pokemonFiltrados(); track p.id) {
+          <tr (click)="mostrarDetalle(p)" style="cursor: pointer;">
+            <td>{{ p.id }}</td>
+            <td>{{ p.name }}</td>
+            <td>
+              <img [src]="p.sprites.front_default" width="50" alt="{{ p.name }}">
+            </td>
+            <td [ngClass]="getColorClase(p)">
+              {{ getTipoPrimario(p) }}
+            </td>
+            <td [ngClass]="getColorClase(p)">
+              {{ getTipoSecundario(p) }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="modal" *ngIf="pokemonSeleccionado">
+  <div class="modal-content">
+    <span class="close" (click)="cerrarModal()">&times;</span>
+    <h2>#{{ pokemonSeleccionado.id }} - {{ pokemonSeleccionado.name }}</h2>
+    <img [src]="pokemonSeleccionado.sprites.front_default" width="120" alt="{{ pokemonSeleccionado.name }}">
+    <p><strong>Altura:</strong> {{ pokemonSeleccionado.height }}</p>
+    <p><strong>Peso:</strong> {{ pokemonSeleccionado.weight }}</p>
+    <p><strong>Habilidades:</strong>
+      <span *ngFor="let ab of pokemonSeleccionado.abilities; let last = last">
+        {{ ab.ability.name }}<span *ngIf="!last">, </span>
+      </span>
+    </p>
+  </div>
+</div>

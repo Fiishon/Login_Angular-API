@@ -1,0 +1,13 @@
+<mat-form-field class="full-width">
+  <mat-label>Ingresa tu contraseña</mat-label>
+  <input matInput [formControl]="control" formControlName="password" [type]="hide() ? 'password' : 'text'"/>
+  <button
+    mat-icon-button
+    matSuffix
+    (click)="clickEvent($event)"
+    [attr.aria-label]="'Mostrar u ocultar contraseña'"
+    [attr.aria-pressed]="!hide()"
+  >
+    <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+  </button>
+</mat-form-field>
