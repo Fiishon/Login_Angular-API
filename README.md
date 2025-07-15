@@ -42,8 +42,21 @@ Al ingresar al formulario de login, el sistema hace una petición HTTP (GET) a l
 
 ### 2. [PokéAPI](https://pokeapi.co)
 
-- **Propósito**: Se usa como ejemplo complementario para cargar información extra (por ejemplo, al iniciar sesión, mostrar un Pokémon aleatorio en la página de bienvenida).
-- **Justificación**: Esta API es gratuita, abierta, y popular entre desarrolladores. Se utiliza para practicar el consumo de una API externa y mostrar datos como nombre, tipo o imagen del Pokémon.
+Propósito en el proyecto:
+Se utiliza para mostrar un catálogo de Pokémon en la página principal una vez que el usuario ha iniciado sesión correctamente. Cada tarjeta del catálogo muestra el nombre, imagen y tipo(s) del Pokémon.
+
+Justificación:
+
+Permite practicar el consumo de datos dinámicos, múltiples peticiones y paginación.
+
+Brinda una experiencia más rica y visual al usuario.
+
+La estructura de sus endpoints (por ejemplo, https://pokeapi.co/api/v2/pokemon?limit=20) permite obtener listas y detalles fácilmente.
+
+Refuerza el manejo de peticiones asincrónicas y suscripciones en Angular.
+
+Implementación en la app:
+Después del login, la página principal carga un catálogo visual con múltiples Pokémon. Se realiza una primera petición para obtener una lista de Pokémon (GET /pokemon?limit=20) y, por cada uno, se realiza una segunda petición para obtener sus detalles (GET /pokemon/{name}), incluyendo imagen, tipos y habilidades. Esto permite construir tarjetas completas y llamativas para cada Pokémon, similares a una Pokédex visual.
 
 
 
