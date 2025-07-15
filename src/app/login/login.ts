@@ -20,20 +20,29 @@ export class Login {
   constructor(private router: Router) {}
 
 
-  onLogin() {
-    debugger;
-    const fromValue = this.loginform.value;
-    this.http.post<{ access_token: string }>("https://api.escuelajs.co/api/v1/auth/login",fromValue).subscribe({
-      next:(response)=>{
-        debugger;
-        console.log('Token recibido:', response.access_token);
-      alert('Inicio de sesión exitoso');
-      this.router.navigate(['pokemon']);
+ onLogin() {
+  const fromValue = this.loginform.value;
+  this.http.post<{ access_token: string }>(
+    "https://api.escuelajs.co/api/v1/auth/login", 
+    fromValue
+  ).subscribe({
+    next: (response) => {
+      localStorage.setItem('access_token', response.access_token);
+      this.http.get("https://api.escuelajs.co/api/v1/auth/profile", {
+        headers: { Authorization: `Bearer ${response.access_token}` }
+      }).subscribe({
+        next: (user) => {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.router.navigate(['pokemon']);
+        },
+        error: (error) => {
+          alert("Error al cargar el perfil del usuario");
+        }
+      });
     },
     error: (error) => {
-      console.error('Error en login:', error);
-      alert('Correo o contraseña incorrectos');
+      alert('Credenciales incorrectas');
     }
-    })
-  }
+  });
+}
 }

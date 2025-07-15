@@ -1,0 +1,62 @@
+mat-paginator {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: Arial, sans-serif;
+  color: #202124; 
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+mat-paginator .mat-paginator-navigation-previous,
+mat-paginator .mat-paginator-navigation-next,
+mat-paginator .mat-paginator-page-size,
+mat-paginator .mat-paginator-range-label {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: #202124;
+  font-weight: 500;
+}
+
+.mat-paginator-navigation-previous,
+.mat-paginator-navigation-next {
+  border-radius: 0 !important;
+}
+
+.mat-paginator-navigation-previous:hover,
+.mat-paginator-navigation-next:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.mat-paginator-range-label {
+  font-size: 14px;
+  color: #5f6368;
+  margin: 0 12px;
+}
+
+.mat-paginator-page-button.mat-paginator-page-active {
+  font-weight: 600;
+  border-bottom: 2px solid #1a73e8;
+  color: #1a73e8;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.mat-paginator-page-button {
+  min-width: 32px;
+  height: 32px;
+  margin: 0 2px;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #202124;
+}
+
+.mat-paginator-page-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(26,115,232,0.5);
+}

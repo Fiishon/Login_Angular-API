@@ -1,4 +1,4 @@
-body {
+:host {
     background-image: url('../../../../imagen.jpg');
     background-size: cover; 
                

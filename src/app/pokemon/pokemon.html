@@ -1,58 +1,154 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
-    <a class="navbar-brand">
-      <img src="Pokedex.jpg" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
-    </a>
-    <form class="d-flex">
-      <input type="text" class="form-control" placeholder="Buscar por nombre..." [(ngModel)]="filtroNombre" name="filtro" (input)="filtrarPokemons()">
-    </form>
-  </div>
-</nav>
+<mat-toolbar class="toolbar">
+  <span class="spacer"></span>
 
-<div class="pokedex-container" >
-  <div class="col-8">
-    <table class="table table-bordered tabla-transparente">
-      <thead>
-        <tr>
-          <th class="cabecera">ID</th>
-          <th class="cabecera">Nombre</th>
-          <th class="cabecera">Imagen</th>
-          <th class="cabecera">Tipo primario</th>
-          <th class="cabecera">Tipo secundario</th>
-        </tr>
-      </thead>
-      <tbody class="tabla tabla-transparente">
-        @for (p of pokemonFiltrados(); track p.id) {
-          <tr (click)="mostrarDetalle(p)" style="cursor: pointer;">
-            <td>{{ p.id }}</td>
-            <td>{{ p.name }}</td>
-            <td>
-              <img [src]="p.sprites.front_default" width="150" alt="{{ p.name }}">
-            </td>
-            <td [ngClass]="getColorClase(p)">
-              {{ getTipoPrimario(p) }}
-            </td>
-            <td [ngClass]="getColorClase(p)">
-              {{ getTipoSecundario(p) }}
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+  <button mat-icon-button (click)="sidenav.toggle()" aria-label="Abrir menú perfil">
+    <img [src]="user()?.photoUrl" class="profile-photo" />
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #sidenav mode="over" position="end" class="profile-sidenav">
+  <div class="profile-slider-content">
+    <button mat-icon-button (click)="sidenav.close()" aria-label="Cerrar menú perfil" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <img [src]="user().photoUrl" alt="Foto de perfil" class="profile-photo-large" 
+         onerror="this.src=''"/>
+    <h2>{{ user().name }}</h2>
+    <p><strong>Nombre:</strong> {{ user().name }}</p>
+    <p><strong>Email:</strong> {{ user().email }}</p>
+
+    <button mat-raised-button color="warn" (click)="cerrarSesion()">
+      <mat-icon>logout</mat-icon>
+      Cerrar sesión
+    </button>
   </div>
+</mat-sidenav>
+
+  
+<form class="filtro-form" (submit)="$event.preventDefault()">
+  <input type="text"
+         class="filtro-input"
+         placeholder="Buscar por nombre..."
+         [(ngModel)]="filtroNombre"
+         name="filtro"
+         (input)="filtrarPokemons()"
+         autocomplete="off" />
+</form>
+
+<div class="botones-acciones">
+  <button (click)="mostrarFormularioAgregar()" class="btn-pequeno">Añadir</button>
+  <button (click)="mostrarFormularioEliminar()" class="btn-pequeno" [disabled]="pokemonPaginados.length === 0">Eliminar</button>
 </div>
+
+
+
+<div class="pokedex-grid">
+  @for (p of pokemonPaginados; track p.id) {
+    <div class="pokedex-card" (click)="mostrarDetalle(p)">
+      <div class="card-header">
+        #{{ p.id }} - {{ p.name | titlecase }}
+      </div>
+      <img [src]="p.sprites.front_default" alt="{{ p.name }}">
+      <div class="card-types">
+        <span class="badge" [ngClass]="getTipoPrimario(p)">
+          {{ getTipoPrimario(p) }}
+        </span>
+        <span *ngIf="getTipoSecundario(p)" class="badge" [ngClass]="getTipoSecundario(p)">
+          {{ getTipoSecundario(p) }}
+        </span>
+      </div>
+    </div>
+  }
+</div>
+
+
 <div class="modal" *ngIf="pokemonSeleccionado">
   <div class="modal-content">
     <span class="close" (click)="cerrarModal()">&times;</span>
-    <h2>#{{ pokemonSeleccionado.id }} - {{ pokemonSeleccionado.name }}</h2>
-    <img [src]="pokemonSeleccionado.sprites.front_default" width="150" alt="{{ pokemonSeleccionado.name }}">
-    <p><strong>Altura:</strong> {{ pokemonSeleccionado.height }}</p>
-    <p><strong>Peso:</strong> {{ pokemonSeleccionado.weight }}</p>
-    <p><strong>Habilidades:</strong>
-      <span *ngFor="let ab of pokemonSeleccionado.abilities; let last = last">
-        {{ ab.ability.name }}<span *ngIf="!last">, </span>
-      </span>
-    </p>
+
+    <h2>#{{ pokemonSeleccionado.id }} - {{ pokemonSeleccionado.name | titlecase }}</h2>
+    <img [src]="pokemonSeleccionado.sprites.front_default" width="150" alt="{{ pokemonSeleccionado.name }}" class="pokemon-imagen">
+
+    <div class="info-grid">
+      <!-- Datos básicos -->
+      <div class="info-section">
+        <h3>Datos básicos</h3>
+        <p><strong>Altura:</strong> {{ pokemonSeleccionado.height }} <strong>Peso:</strong> {{ pokemonSeleccionado.weight }}</p>
+        <p><strong>Generación:</strong> {{ obtenerGeneracion(pokemonSeleccionado) }}</p>
+      </div>
+
+      <!-- Tipos -->
+      <div class="info-section">
+        <h3>Tipos</h3>
+        <p *ngFor="let tipo of pokemonSeleccionado.types">
+          <span class="type-pill {{ tipo.type.name }}">{{ tipo.type.name | titlecase }}</span>
+        </p>
+      </div>
+
+      <!-- Habilidades -->
+      <div class="info-section">
+        <h3>Habilidades</h3>
+        <p>
+          <span *ngFor="let ab of pokemonSeleccionado.abilities; let last = last">
+            {{ ab.ability.name | titlecase }}<span *ngIf="!last">, </span>
+          </span>
+        </p>
+      </div>
+
+      <!-- Stats con barras -->
+      <div class="info-section">
+        <h3>Stats</h3>
+        <div *ngFor="let stat of pokemonSeleccionado.stats" class="stat-bar">
+          <label>{{ stat.stat.name | titlecase }}</label>
+          <div class="bar">
+            <div class="value" [style.width.%]="(stat.base_stat/255)*100"></div>
+          </div>
+          <span>{{ stat.base_stat }}</span>
+        </div>
+      </div>
+
+      <!-- Movimientos -->
+      <div class="info-section">
+        <h3>Movimientos (10 primeros)</h3>
+        <ul>
+          <li *ngFor="let move of getMovimientos(pokemonSeleccionado) | slice:0:10">
+            {{ move.move.name | titlecase }}
+          </li>
+        </ul>
+      </div>   
+    </div>
   </div>
 </div>
+
+<app-paginacion (cambioPagina)="actualizarPaginacion($event)"></app-paginacion>
+
+<div class="modal-fondo" *ngIf="mostrarAgregar">
+  <div class="modal-contenido">
+    <h3>Añadir Pokémon</h3>
+    <input type="text" placeholder="Nombre" [(ngModel)]="nuevoPokemon.name" />
+    <input type="number" placeholder="Altura" [(ngModel)]="nuevoPokemon.height" />
+    <input type="number" placeholder="Peso" [(ngModel)]="nuevoPokemon.weight" />
+    <div class="modal-botones">
+      <button (click)="agregarPokemonConfirmado()" class="btn-pequeno">Confirmar</button>
+      <button (click)="cancelarAgregar()" class="btn-pequeno">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar Pokémon -->
+<div class="modal-fondo" *ngIf="mostrarEliminar">
+  <div class="modal-contenido">
+    <h3>Eliminar Pokémon</h3>
+    <input type="text" placeholder="Nombre a eliminar" [(ngModel)]="nombreEliminar" />
+    <div class="modal-botones">
+      <button (click)="eliminarPokemonConfirmado()" class="btn-pequeno">Eliminar</button>
+      <button (click)="cancelarEliminar()" class="btn-pequeno">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+</mat-sidenav-container>
 
