@@ -63,15 +63,46 @@ Conclusión del uso de APIs
 El uso conjunto de estas dos APIs demuestra cómo una aplicación Angular puede integrarse con múltiples servicios REST externos para cumplir distintos objetivos: autenticación y visualización de contenido. Además, mejora la comprensión del flujo de datos, uso de servicios, modelos, componentes y promueve buenas prácticas en el consumo de APIs desde el frontend.
 
 
+#Capturas de pantalla
+
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091439" src="https://github.com/user-attachments/assets/f09ff508-db86-436d-989d-0d1a9e5c8a68" />
+
+De primero, al iniciar sesión, si queremos entrar con credenciales incorrectas, no nos lo permite.
 
 
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091531" src="https://github.com/user-attachments/assets/d6713fba-14da-4ab0-b2db-fefe5c052e72" />
 
+Al iniciar sesión correctamente, nos manda a nuestro componente que tienen nuestra pokeAPI, donde tendremos mas cosas.
 
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091541" src="https://github.com/user-attachments/assets/0752804d-0a7d-4e08-9490-0f8a0f8b965a" />
 
+Tenemos la informacion del usuario que se logueo y su foto de perfil.
 
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091552" src="https://github.com/user-attachments/assets/5c557560-5aa7-4d63-b2fd-6338fd084e5f" />
 
+Tambien, tenemos un filtro de busqueda por nombre del pokemon.
 
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091619" src="https://github.com/user-attachments/assets/4427b057-d47d-4c85-b8e8-e1f1278208d8" />
 
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091630" src="https://github.com/user-attachments/assets/991be7da-e34b-45f7-a9e8-4b736b7d1fad" />
+
+Contamos con paginacion para hacer mas agil el proceso de cargar los pokemon de la API.
+
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091636" src="https://github.com/user-attachments/assets/20ca60e7-4687-4389-b104-8dc777ae11b1" />
+
+Al dar click en un pokemon, nos soltara un modal con su información.
+
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091653" src="https://github.com/user-attachments/assets/6abfbf83-51e9-4d9f-aa96-cc12e952a8d5" />
+
+Al dar click en el boton de agregar, se mostrara un formulario donde podremos agregar informacion de un nuevo pokemon, estos datos son de prueba y es experimental la función.
+
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091702" src="https://github.com/user-attachments/assets/f9b74fec-902b-4fe7-a75c-1d036cdf27da" />
+
+Y si lo buscamos, nos aparecerá.
+
+<img width="2880" height="1824" alt="Captura de pantalla 2025-07-15 091713" src="https://github.com/user-attachments/assets/c9432391-4f2f-4dcc-9a0b-fd29676a2ace" />
+
+Y por ultimo, para eliminarlo presionamos el boton y tendremos que eliminarlo por nombre.
 
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
