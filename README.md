@@ -59,6 +59,14 @@ Implementación en la app:
 Después del login, la página principal carga un catálogo visual con múltiples Pokémon. Se realiza una primera petición para obtener una lista de Pokémon (GET /pokemon?limit=20) y, por cada uno, se realiza una segunda petición para obtener sus detalles (GET /pokemon/{name}), incluyendo imagen, tipos y habilidades. Esto permite construir tarjetas completas y llamativas para cada Pokémon, similares a una Pokédex visual.
 
 
+Conclusión del uso de APIs
+El uso conjunto de estas dos APIs demuestra cómo una aplicación Angular puede integrarse con múltiples servicios REST externos para cumplir distintos objetivos: autenticación y visualización de contenido. Además, mejora la comprensión del flujo de datos, uso de servicios, modelos, componentes y promueve buenas prácticas en el consumo de APIs desde el frontend.
+
+
+
+
+
+
 
 
 
