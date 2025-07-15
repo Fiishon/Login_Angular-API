@@ -26,13 +26,30 @@ El botón de cerrar sesión elimina el token/usuario y regresa al login.
 
 ### 1. [Fake Store API - Escuelajs](https://api.escuelajs.co/api/v1/users)
 
-- **Propósito**: Se utiliza para obtener una lista de usuarios reales simulados, con campos como nombre, correo, etc.
-- **Justificación**: Esta API es ideal para pruebas porque entrega datos realistas y estructurados, sin necesidad de autenticación previa. Permite validar inicios de sesión comparando el email y la contraseña del usuario.
+Propósito en el proyecto:
+Se utilizó esta API para simular un sistema real de usuarios registrados. Permite obtener una lista de usuarios con campos como nombre, correo electrónico, contraseña. Esta información es fundamental para realizar una verificación de credenciales en el proceso de login.
+
+Justificación:
+
+Es una API pública y gratuita que no requiere autenticación para su uso básico, lo cual facilita el desarrollo y pruebas.
+
+Entrega datos en un formato estructurado y limpio (JSON), ideal para consumir desde Angular con HttpClient.
+
+Permite trabajar con un modelo de usuario completo, lo cual ayuda a simular la lógica de validación como si se tratara de un backend real.
+
+Ejemplo de uso en el proyecto:
+Al ingresar al formulario de login, el sistema hace una petición HTTP (GET) a la ruta /users de la API para obtener todos los usuarios y luego compara los datos ingresados por el usuario con los registros obtenidos. Si hay coincidencia en correo y contraseña, se permite el acceso.
 
 ### 2. [PokéAPI](https://pokeapi.co)
 
 - **Propósito**: Se usa como ejemplo complementario para cargar información extra (por ejemplo, al iniciar sesión, mostrar un Pokémon aleatorio en la página de bienvenida).
 - **Justificación**: Esta API es gratuita, abierta, y popular entre desarrolladores. Se utiliza para practicar el consumo de una API externa y mostrar datos como nombre, tipo o imagen del Pokémon.
+
+
+
+
+
+
 
 
 
