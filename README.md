@@ -1,5 +1,28 @@
 # LoginAngular
 
+Este proyecto de login construido con **Angular** que consume una **API** de usuarios. Permite a los usuarios autenticarse mediante sus credenciales y navegar dentro si las credenciales son válidas.
+
+
+## 🧰 Tecnologías utilizadas
+
+- Angular 20
+- TypeScript
+- Bootstrap 5
+- API USUARIOS
+- API POKEMON
+- Angular Material
+
+Ejemplo de uso
+Accede al formulario en /login.
+
+Ingresa credenciales válidas (ej: admin@gmail.com / admin123).
+
+Si la autenticación es correcta, redirige al dashboard o página principal.
+
+El botón de cerrar sesión elimina el token/usuario y regresa al login.
+
+
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
 
 ## Development server
